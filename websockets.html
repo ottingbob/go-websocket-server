@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GO Websocket DEMO</title>
+    <link rel="stylesheet" 
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+      crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="./css/websockets.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row p-3 px-md-4"></div>
+      <div class="row pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Websocket Demo</h1>
+
+        <div class="input-group">
+          <input id="input" class="form-control" type="text" placeholder="Enter message..." />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="send()">Send</button>
+          </span>
+        </div>
+        
+        <div class="row output-row">
+          <pre id="output"></pre>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+      var input = document.getElementById("input");
+      var output = document.getElementById("output");
+      var socket = new WebSocket("ws://localhost:8000/echo");
+
+      socket.onopen = function() {
+        output.innerHTML += "Status: WS Connected\n";
+      };
+
+      socket.onmessage = function(e) {
+        output.innerHTML += "Server: " + e.data + "\n";
+      };
+
+      socket.onclose = function() {
+        output.innerHTML += "Status: WS Disconnected\n";
+      };
+
+      $('#input').keypress(function(e) {
+        if (e.which == 13) {
+          send();
+        }
+      });
+
+      function send() {
+        socket.send(input.value);
+        input.value = "";
+      }
+    </script>
+  </body>
+</html>

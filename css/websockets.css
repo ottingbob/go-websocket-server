@@ -1,0 +1,21 @@
+h1 {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+#input {
+    max-height: 40px;
+    max-width: 300px;
+    margin-right: 10px;
+}
+
+.input-group {
+    width: 40%;
+    margin-left: auto;
+}
+
+.output-row {
+    width: 50%;
+    margin-left: auto;
+    text-align: left;
+}
